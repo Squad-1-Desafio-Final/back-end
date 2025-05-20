@@ -3,6 +3,7 @@ package br.com.acabouMony.entity;
 import br.com.acabouMony.dto.CadastroUsuarioDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
