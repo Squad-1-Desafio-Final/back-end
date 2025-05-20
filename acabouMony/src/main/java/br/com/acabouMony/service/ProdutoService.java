@@ -2,7 +2,6 @@ package br.com.acabouMony.service;
 
 import br.com.acabouMony.dto.CadastroProdutoDto;
 import br.com.acabouMony.entity.Produto;
-import br.com.acabouMony.exception.CartaoNaoEncontrado;
 import br.com.acabouMony.exception.ProdutoNaoEncontrado;
 import br.com.acabouMony.mapper.ProdutoMapperStruct;
 import br.com.acabouMony.repository.ProdutoRepository;
@@ -40,6 +39,9 @@ public class ProdutoService {
                 .collect(Collectors.toList());
 
     }
+    public void deletar(UUID id){
+        repository.deleteById(id);
+    }
 
     public CadastroProdutoDto atualizar(UUID id){
         Produto produto = repository.findById(id).orElseThrow(() -> new ProdutoNaoEncontrado("Produto não encontrado"));
@@ -49,34 +51,4 @@ public class ProdutoService {
 
 
     }
-
-    public void deletar(UUID id){
-        repository.deleteById(id);
-    }
-
-
-    public List<CadastroProdutoDto> listarTodos(){
-
-        List<Produto> lista = repository.findAll();
-        return lista.stream()
-                .map(produtoMapperStruct::toProdutoDto)
-                .collect(Collectors.toList());
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
