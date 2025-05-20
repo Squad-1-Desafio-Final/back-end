@@ -42,11 +42,14 @@ public class ProdutoService {
 
     }
 
-//    public CadastroProdutoDto atualizar(UUID id){
-//        Optional<Produto> produto = repository.findById(id);
-//
-//
-//    }
+    public CadastroProdutoDto atualizar(UUID id){
+        Optional<Produto> produto = repository.findById(id);
+
+
+
+
+
+    }
 
 
 
