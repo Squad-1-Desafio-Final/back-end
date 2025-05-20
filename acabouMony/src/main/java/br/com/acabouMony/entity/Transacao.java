@@ -1,10 +1,7 @@
 package br.com.acabouMony.entity;
 
 import br.com.acabouMony.tipos.TipoPagamento;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +18,8 @@ import java.util.Date;
 @Entity
 public class Transacao {
 
-    @UUID
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private java.util.UUID id;
 
     @FutureOrPresent

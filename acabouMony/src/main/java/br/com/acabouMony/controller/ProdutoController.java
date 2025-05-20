@@ -29,8 +29,21 @@ public class ProdutoController {
 
     @PatchMapping("/atualizar/{id}")
     public ResponseEntity<CadastroProdutoDto> atualizarProduto(@PathVariable UUID id){
-        return ResponseEntity.status(200).body(service.)
+        return ResponseEntity.status(200).body(service.atualizar(id));
     }
+
+    @DeleteMapping("/excluir/{id}")
+    public ResponseEntity<Void> deletarProduto(@PathVariable UUID id){
+        service.deletar(id);
+        return ResponseEntity.status(204).build();
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<CadastroProdutoDto>> listarTodos(){
+        return ResponseEntity.status(200).build();
+
+    }
+
 
 
 }
