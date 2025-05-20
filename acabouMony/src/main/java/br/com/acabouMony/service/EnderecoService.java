@@ -47,7 +47,7 @@ public class EnderecoService {
         var endereco = enderecoRepository.findById(id);
 
         if (endereco.isEmpty()) {
-            throw new RuntimeException("Produto com ID não encontrado!");
+            throw new RuntimeException("Usuário com ID não encontrado!");
         }
 
         return endereco.get();
