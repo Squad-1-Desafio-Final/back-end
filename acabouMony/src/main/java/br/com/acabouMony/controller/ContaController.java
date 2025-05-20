@@ -19,7 +19,7 @@ public class ContaController {
     private ContaService contaService;
 
     @PostMapping
-    public ResponseEntity<ListagemContaDTO> saveConta(CadastroContaDTO dto) {
+    public ResponseEntity<ListagemContaDTO> saveConta(@RequestBody CadastroContaDTO dto) {
         try {
             var conta = contaService.saveConta(dto);
             return ResponseEntity.status(201).body(conta);
@@ -49,7 +49,7 @@ public class ContaController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ListagemContaDTO> updateConta(@PathVariable UUID id, AtualizacaoContaDTO dto) {
+    public ResponseEntity<ListagemContaDTO> updateConta(@PathVariable UUID id, @RequestBody AtualizacaoContaDTO dto) {
         try {
             var conta = contaService.updateConta(id, dto);
             return ResponseEntity.status(200).body(conta);

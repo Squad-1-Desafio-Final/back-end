@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class Conta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private Date dataVencimento;
+    private LocalDate dataVencimento;
 
     private double saldo;
 

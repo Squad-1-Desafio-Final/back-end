@@ -4,10 +4,12 @@ import br.com.acabouMony.dto.CadastroContaDTO;
 import br.com.acabouMony.dto.ListagemContaDTO;
 import br.com.acabouMony.entity.Conta;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ContaMapper {
 
+    @Mapping(source = "limite", target = "limite")
     Conta toEntity(CadastroContaDTO dto);
 
     ListagemContaDTO toListagemContaDTO(Conta conta);
