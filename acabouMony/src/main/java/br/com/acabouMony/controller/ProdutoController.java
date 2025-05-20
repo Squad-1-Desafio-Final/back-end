@@ -40,9 +40,12 @@ public class ProdutoController {
 
     @GetMapping("/listar")
     public ResponseEntity<List<CadastroProdutoDto>> listarTodos(){
+        service.listarTodos();
         return ResponseEntity.status(200).build();
 
     }
+
+
 
 
 

@@ -51,4 +51,13 @@ public class ProdutoService {
 
 
     }
+
+    public List<CadastroProdutoDto> listarTodos(){
+
+        List<Produto> lista = repository.findAll();
+        return lista.stream()
+                .map(produtoMapperStruct::toProdutoDto)
+                .collect(Collectors.toList());
+
+    }
 }
