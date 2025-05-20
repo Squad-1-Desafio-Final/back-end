@@ -28,7 +28,6 @@ public class Usuario {
 
     private String senha;
 
-    @CPF
     private String cpf;
 
     private String telefone;

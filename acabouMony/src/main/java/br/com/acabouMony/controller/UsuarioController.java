@@ -21,13 +21,13 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<String> cadastrarUsuario(@RequestBody @Valid CadastroUsuarioDTO usuarioDTO) {
-
+        try{
             usuarioService.saveUsuario(usuarioDTO);
             return ResponseEntity.status(201).body("Cadastro de usuário feito com sucesso!");
-
-//        catch (RuntimeException e) {
-//            return ResponseEntity.status(409).body("Ocorreu um erro ao cadastrar usuário! Já existe um cadastro com esse email!");
-//        }
+        }
+        catch (RuntimeException e) {
+            return ResponseEntity.status(409).body("Ocorreu um erro ao cadastrar usuário! Já existe um cadastro com esse email!");
+        }
     }
 
     @DeleteMapping("/{id}")
