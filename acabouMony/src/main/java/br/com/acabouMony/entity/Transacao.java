@@ -4,6 +4,7 @@ import br.com.acabouMony.tipos.TipoPagamento;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.FutureOrPresent;
 import org.hibernate.validator.constraints.UUID;
 
@@ -21,8 +22,13 @@ public class Transacao {
     @Enumerated(EnumType.STRING)
     private TipoPagamento tipo;
 
-    //cartao
-    //destinatario
-    //pedido
+    @ManyToOne
+    private Cartao cartao;
+
+    @ManyToOne
+    private Usuario destinatario;
+
+    @ManyToOne
+    private Pedido pedido;
 
 }

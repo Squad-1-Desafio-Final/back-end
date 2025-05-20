@@ -3,6 +3,7 @@ package br.com.acabouMony.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.validator.constraints.UUID;
@@ -16,8 +17,11 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private java.util.UUID id;
 
-    //Usurio
-    //Produto
+    @ManyToOne
+    private Usuario usuario;
+
+    @ManyToOne
+    private Produto produto;
 
     @PositiveOrZero
     private Double precoTotal;
