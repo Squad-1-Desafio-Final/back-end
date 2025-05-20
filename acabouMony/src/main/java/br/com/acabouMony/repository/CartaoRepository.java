@@ -13,6 +13,6 @@ public interface CartaoRepository extends JpaRepository<Cartao, UUID> {
 
 
     // trocar no nome do database
-    @Query("SELECT new br.com.acabouMony.dto.CartaoResumoDTO(c.numero, c.tipo) FROM Cartao c")
+    @Query("SELECT (c.numero, c.tipo) FROM Cartao c")
     List<Cartao> listarNumETipo();
 }

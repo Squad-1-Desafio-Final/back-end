@@ -36,7 +36,7 @@ public class PedidoController {
         return ResponseEntity.status(200).body(service.editar(id, dados));
     }
 
-    @PatchMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> Deletar(UUID id, Pedido dados){
         service.deletar(id);
         return ResponseEntity.status(200).build();

@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ContaMapper {
 
-    @Mapping(source = "limite", target = "limite")
+    @Mapping(source = "numero", target = "numero")
     Conta toEntity(CadastroContaDTO dto);
 
     ListagemContaDTO toListagemContaDTO(Conta conta);
