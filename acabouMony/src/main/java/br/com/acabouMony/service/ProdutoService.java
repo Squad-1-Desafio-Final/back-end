@@ -23,9 +23,6 @@ public class ProdutoService {
     ProdutoRepository repository;
 
     @Autowired
-    ProdutoService service;
-
-    @Autowired
     ProdutoMapperStruct produtoMapperStruct;
 
     public CadastroProdutoDto criar(CadastroProdutoDto dados){

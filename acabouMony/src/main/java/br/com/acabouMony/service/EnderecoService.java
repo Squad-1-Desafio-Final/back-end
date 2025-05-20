@@ -25,4 +25,5 @@ public class EnderecoService {
         enderecoRepository.save(endereco);
         return enderecoMapper.toListagemEnderecoDTO(endereco);
     }
+
 }
