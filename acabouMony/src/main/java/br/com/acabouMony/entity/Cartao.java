@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 public class Cartao {
 
-    @UUID
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private java.util.UUID id;
 

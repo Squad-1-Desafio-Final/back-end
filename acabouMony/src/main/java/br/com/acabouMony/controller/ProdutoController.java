@@ -29,7 +29,7 @@ public class ProdutoController {
 
     @PatchMapping("/atualizar/{id}")
     public ResponseEntity<CadastroProdutoDto> atualizarProduto(@PathVariable UUID id){
-        return ResponseEntity.status(200).body(service.)
+        return ResponseEntity.status(200).body(service.listar(id));
     }
 
 
