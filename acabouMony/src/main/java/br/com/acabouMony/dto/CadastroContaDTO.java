@@ -1,8 +1,8 @@
 package br.com.acabouMony.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public record CadastroContaDTO(Date dataVencimento,
+public record CadastroContaDTO(LocalDate dataVencimento,
                                double limite,
                                int agencia,
                                int numero,
