@@ -42,7 +42,7 @@ public class PedidoService {
 
         pedidoEncontrado.setProdutos(dados.getProdutos());
 
-        return repository.save(dados);
+        return repository.save(pedidoEncontrado);
 
     }
 

@@ -27,17 +27,17 @@ public class PedidoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Pedido> concluirTransacao(UUID id){
+    public ResponseEntity<Pedido> concluirTransacao(@PathVariable  UUID id){
         return ResponseEntity.status(200).body(service.concluirTransacao(id));
     }
 
     @PatchMapping("/editar/{id}")
-    public ResponseEntity<Pedido> editar(UUID id, Pedido dados){
+    public ResponseEntity<Pedido> editar(@PathVariable UUID id, @RequestBody Pedido dados){
         return ResponseEntity.status(200).body(service.editar(id, dados));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> Deletar(UUID id, Pedido dados){
+    public ResponseEntity<Void> Deletar(@PathVariable UUID id, @RequestBody  Pedido dados){
         service.deletar(id);
         return ResponseEntity.status(200).build();
     }
