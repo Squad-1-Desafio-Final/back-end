@@ -1,7 +1,6 @@
 package br.com.acabouMony.dto;
 
 public record CadastroEnderecoDTO(
-        String email,
         String logradouro,
         int numero,
         String complemento,

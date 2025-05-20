@@ -26,5 +26,4 @@ public class UsuarioController {
             return ResponseEntity.status(409).body("Ocorreu um erro ao cadastrar usuário! Já existe um cadastro com esse email!");
         }
     }
-
 }

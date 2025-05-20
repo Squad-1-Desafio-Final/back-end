@@ -2,7 +2,6 @@ package br.com.acabouMony.mapper;
 
 import br.com.acabouMony.dto.CadastroEnderecoDTO;
 import br.com.acabouMony.dto.ListagemEnderecoDTO;
-import br.com.acabouMony.entity.Conta;
 import br.com.acabouMony.entity.Endereco;
 import org.mapstruct.Mapper;
 
