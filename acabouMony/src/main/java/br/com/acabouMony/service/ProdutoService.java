@@ -45,8 +45,8 @@ public class ProdutoService {
     public CadastroProdutoDto atualizar(UUID id){
         Optional<Produto> produto = repository.findById(id);
 
-
-
+        Produto produtoSalvo = repository.save(produto);
+        return produtoMapperStruct.toProdutoDto(produtoSalvo);
 
 
     }

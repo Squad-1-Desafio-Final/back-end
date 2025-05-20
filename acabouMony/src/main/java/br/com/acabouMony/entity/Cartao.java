@@ -19,7 +19,7 @@ public class Cartao {
 
     @UUID
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private java.util.UUID id;
 
     private Long numero;
 
