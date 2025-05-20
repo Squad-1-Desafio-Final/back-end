@@ -31,4 +31,6 @@ public class Produto {
     private Byte disponivel;
 
     private Integer quantidade;
+
+
 }
