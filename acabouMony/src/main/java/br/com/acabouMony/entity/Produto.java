@@ -3,6 +3,7 @@ package br.com.acabouMony.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.math.BigDecimal;
 @Entity
 public class Produto {
 
-    @UUID
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private java.util.UUID id;
 

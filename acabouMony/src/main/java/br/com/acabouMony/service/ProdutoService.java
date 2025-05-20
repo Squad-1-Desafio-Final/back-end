@@ -43,13 +43,15 @@ public class ProdutoService {
     }
 
     public CadastroProdutoDto atualizar(UUID id){
-        Optional<Produto> produto = repository.findById(id);
+        Produto produto = repository.findById().orElseThrow(() -> new CartaoNaoEncontrado("Cartão não encontrado"));
 
-        Produto produtoSalvo = repository.save(produto);
+        Produto produtoSalvo = repository.save(produto.get().getId());
         return produtoMapperStruct.toProdutoDto(produtoSalvo);
 
 
     }
+
+
 
 
 
