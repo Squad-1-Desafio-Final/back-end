@@ -21,4 +21,12 @@ public class GlobalExceptionHandler {
                 .body(e.getMessage());
     }
 
+    @ExceptionHandler(ProdutoNaoEncontrado.class)
+    public ResponseEntity<String> handleProdutoNaoExiste(ProdutoNaoEncontrado e){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(e.getMessage());
+    }
+
+
 }

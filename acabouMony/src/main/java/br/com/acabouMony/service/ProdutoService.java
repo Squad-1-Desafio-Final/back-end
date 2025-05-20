@@ -2,6 +2,8 @@ package br.com.acabouMony.service;
 
 import br.com.acabouMony.dto.CadastroProdutoDto;
 import br.com.acabouMony.entity.Produto;
+import br.com.acabouMony.exception.CartaoNaoEncontrado;
+import br.com.acabouMony.exception.ProdutoNaoEncontrado;
 import br.com.acabouMony.mapper.ProdutoMapperStruct;
 import br.com.acabouMony.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +45,36 @@ public class ProdutoService {
     }
 
     public CadastroProdutoDto atualizar(UUID id){
-        Produto produto = repository.findById().orElseThrow(() -> new CartaoNaoEncontrado("Cartão não encontrado"));
+        Produto produto = repository.findById(id).orElseThrow(() -> new ProdutoNaoEncontrado("Produto não encontrado"));
 
-        Produto produtoSalvo = repository.save(produto.get().getId());
+        Produto produtoSalvo = repository.save(produto);
         return produtoMapperStruct.toProdutoDto(produtoSalvo);
 
 
     }
+
+    public void deletar(UUID id){
+        repository.deleteById(id);
+    }
+
+
+    public List<CadastroProdutoDto> listarTodos(){
+
+        List<Produto> lista = repository.findAll();
+        return lista.stream()
+                .map(produtoMapperStruct::toProdutoDto)
+                .collect(Collectors.toList());
+
+    }
+
+
+
+
+
+
+
+
+
 
 
 
