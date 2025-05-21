@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-21T14:01:54-0300",
+    date = "2025-05-21T15:03:36-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -22,12 +22,6 @@ public class CartaoMapperStructImpl implements CartaoMapperStruct {
         }
 
         Cartao cartao = new Cartao();
-
-        cartao.setNumero( dto.numero() );
-        cartao.setCvv( dto.cvv() );
-        cartao.setSenha( dto.senha() );
-        cartao.setValidade( dto.validade() );
-        cartao.setTipo( dto.tipo() );
 
         return cartao;
     }
@@ -43,14 +37,10 @@ public class CartaoMapperStructImpl implements CartaoMapperStruct {
         Integer senha = null;
         Date validade = null;
         TipoPagamento tipo = null;
+        boolean ativo = false;
+        int numeroConta = 0;
 
-        numero = entity.getNumero();
-        cvv = entity.getCvv();
-        senha = entity.getSenha();
-        validade = entity.getValidade();
-        tipo = entity.getTipo();
-
-        CadastroCartaoDTO cadastroCartaoDTO = new CadastroCartaoDTO( numero, cvv, senha, validade, tipo );
+        CadastroCartaoDTO cadastroCartaoDTO = new CadastroCartaoDTO( numero, cvv, senha, validade, tipo, ativo, numeroConta );
 
         return cadastroCartaoDTO;
     }
@@ -66,14 +56,10 @@ public class CartaoMapperStructImpl implements CartaoMapperStruct {
         Integer senha = null;
         Date validade = null;
         TipoPagamento tipo = null;
+        boolean ativo = false;
+        int numeroConta = 0;
 
-        numero = entity.getNumero();
-        cvv = entity.getCvv();
-        senha = entity.getSenha();
-        validade = entity.getValidade();
-        tipo = entity.getTipo();
-
-        CadastroCartaoDTO cadastroCartaoDTO = new CadastroCartaoDTO( numero, cvv, senha, validade, tipo );
+        CadastroCartaoDTO cadastroCartaoDTO = new CadastroCartaoDTO( numero, cvv, senha, validade, tipo, ativo, numeroConta );
 
         return cadastroCartaoDTO;
     }

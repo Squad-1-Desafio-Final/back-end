@@ -2,7 +2,9 @@ package br.com.acabouMony.controller;
 
 import br.com.acabouMony.dto.CadastroCartaoDTO;
 import br.com.acabouMony.dto.ListagemCartaoDTO;
+import br.com.acabouMony.entity.Cartao;
 import br.com.acabouMony.entity.Conta;
+import br.com.acabouMony.entity.Pedido;
 import br.com.acabouMony.service.CartaoService;
 import br.com.acabouMony.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,10 @@ public class CartaoController {
         return ResponseEntity.status(200).body(service.listarPorId(id));
     }
 
+    @PatchMapping("/editar/{id}")
+    public ResponseEntity<Cartao> editar(@PathVariable UUID id, @RequestBody Cartao dados){
+        return ResponseEntity.status(200).body(service.editar(id, dados));
+    }
 
 
 

@@ -4,8 +4,11 @@ import br.com.acabouMony.dto.CadastroCartaoDTO;
 import br.com.acabouMony.dto.ListagemCartaoDTO;
 import br.com.acabouMony.entity.Cartao;
 import br.com.acabouMony.entity.Conta;
+import br.com.acabouMony.entity.Pedido;
 import br.com.acabouMony.entity.Produto;
+import br.com.acabouMony.exception.CartaoNaoEncontrado;
 import br.com.acabouMony.exception.IdNaoEncontradoException;
+import br.com.acabouMony.exception.PedidoNaoEncontrado;
 import br.com.acabouMony.exception.UsuarioNaoEncontradoException;
 import br.com.acabouMony.mapper.CartaoListarMapper;
 import br.com.acabouMony.mapper.CartaoMapperStruct;
@@ -42,8 +45,9 @@ public class CartaoService {
         Cartao cartao = cartaoMapperStruct.toEntity(dto);
         var conta = contaRepository.findByNumero(dto.numeroConta());
 
-        if (conta.isEmpty()){
-            throw new RuntimeException("Conta não existe!");
+
+        if (conta.isPresent()){
+            throw new RuntimeException("Conta já existente");
 
         }
 
@@ -75,10 +79,12 @@ public class CartaoService {
     }
 
 
+    public Cartao editar(UUID id, Cartao dados) {
+        Cartao cartaoEncontrado = repository.findById(id) .orElseThrow(() -> new CartaoNaoEncontrado("Cartão não encontrado"));
 
+        cartaoEncontrado.setConta(dados.getConta());
 
-
-
-
+        return repository.save(cartaoEncontrado);
+    }
 
 }
