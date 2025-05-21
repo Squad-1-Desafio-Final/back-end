@@ -79,10 +79,10 @@ public class CartaoService {
     }
 
 
-    public Cartao editar(UUID id, Cartao dados) {
+    public Cartao editar(UUID id) {
         Cartao cartaoEncontrado = repository.findById(id) .orElseThrow(() -> new CartaoNaoEncontrado("Cartão não encontrado"));
 
-        cartaoEncontrado.setConta(dados.getConta());
+        cartaoEncontrado.setAtivo(false);
 
         return repository.save(cartaoEncontrado);
     }
