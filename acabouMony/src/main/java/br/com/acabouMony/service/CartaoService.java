@@ -1,10 +1,14 @@
 package br.com.acabouMony.service;
 
 import br.com.acabouMony.dto.CadastroCartaoDTO;
+import br.com.acabouMony.dto.ListagemCartaoDTO;
 import br.com.acabouMony.entity.Cartao;
+import br.com.acabouMony.entity.Conta;
 import br.com.acabouMony.entity.Produto;
+import br.com.acabouMony.mapper.CartaoListarMapper;
 import br.com.acabouMony.mapper.CartaoMapperStruct;
 import br.com.acabouMony.repository.CartaoRepository;
+import br.com.acabouMony.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,28 +26,35 @@ public class CartaoService {
     CartaoRepository repository;
 
     @Autowired
+    ContaRepository contaRepository;
+
+    @Autowired
     CartaoMapperStruct cartaoMapperStruct;
+
+    @Autowired
+    CartaoListarMapper cartaoListarMapper;
 
     public CadastroCartaoDTO criar(CadastroCartaoDTO dto){
         Cartao cartao = cartaoMapperStruct.toEntity(dto);
-        Cartao cartaoSalvo = repository.save(cartao);
-        return cartaoMapperStruct.toCartaoDto(cartaoSalvo);
+
+        repository.save(cartao);
+        System.out.println(cartao.getConta());
+        return cartaoMapperStruct.toCartaoDto(cartao);
 
     }
 
-    public List<CadastroCartaoDTO> listar(){
-        List<Cartao> lista = repository.listarNumETipo();
+    public List<ListagemCartaoDTO> listar(){
+        var lista = repository.listarNumETipo();
 
-        return lista.stream()
-                .map(cartaoMapperStruct::toCartaoDto)
-                .collect(Collectors.toList());
+        return lista;
     }
 
-    public List<CadastroCartaoDTO> listarPorId(UUID id){
+
+    public List<ListagemCartaoDTO> listarPorId(UUID id){
         Optional<Cartao> cartao = repository.findById(id);
 
         return cartao.stream()
-                .map(cartaoMapperStruct::toCartaoDto)
+                .map(cartaoListarMapper::toCartaoDto)
                 .collect(Collectors.toList());
     }
 

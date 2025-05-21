@@ -23,13 +23,13 @@ public class ProdutoController {
     }
 
     @GetMapping("/listar/{id}")
-    public ResponseEntity<List<CadastroProdutoDto>> listarProduto(@PathVariable UUID id){
+    public ResponseEntity<CadastroProdutoDto> listarProduto(@PathVariable UUID id){
         return ResponseEntity.status(200).body(service.listar(id));
     }
 
     @PatchMapping("/atualizar/{id}")
-    public ResponseEntity<CadastroProdutoDto> atualizarProduto(@PathVariable UUID id){
-        return ResponseEntity.status(200).body(service.atualizar(id));
+    public ResponseEntity<CadastroProdutoDto> atualizarProduto(@PathVariable UUID id, @RequestBody CadastroProdutoDto dto){
+        return ResponseEntity.status(200).body(service.atualizar(id,dto));
     }
 
     @DeleteMapping("/excluir/{id}")
@@ -40,8 +40,8 @@ public class ProdutoController {
 
     @GetMapping("/listar")
     public ResponseEntity<List<CadastroProdutoDto>> listarTodos(){
-        service.listarTodos();
-        return ResponseEntity.status(200).build();
+
+        return ResponseEntity.status(200).body(service.listarTodos());
 
     }
 

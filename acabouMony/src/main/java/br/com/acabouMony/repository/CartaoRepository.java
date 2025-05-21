@@ -1,5 +1,6 @@
 package br.com.acabouMony.repository;
 
+import br.com.acabouMony.dto.ListagemCartaoDTO;
 import br.com.acabouMony.entity.Cartao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,6 @@ public interface CartaoRepository extends JpaRepository<Cartao, UUID> {
 
 
     // trocar no nome do database
-    @Query("SELECT (c.numero, c.tipo) FROM Cartao c")
-    List<Cartao> listarNumETipo();
+    @Query("SELECT new br.com.acabouMony.dto.ListagemCartaoDTO(c.numero, c.tipo) FROM Cartao c")
+    List<ListagemCartaoDTO> listarNumETipo();
 }

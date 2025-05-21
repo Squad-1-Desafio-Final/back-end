@@ -31,20 +31,26 @@ public class ProdutoService {
         return produtoMapperStruct.toProdutoDto(produtoSalvo);
     }
 
-    public List<CadastroProdutoDto> listar(UUID id){
-        Optional<Produto> produtos = repository.findById(id);
 
-        return produtos.stream()
-                .map(produtoMapperStruct::toProdutoDto)
-                .collect(Collectors.toList());
+
+    public CadastroProdutoDto listar(UUID id){
+        Produto produtos = repository.findById(id).orElseThrow(() -> new ProdutoNaoEncontrado("Produto não encontrado"));
+
+        return produtoMapperStruct.toProdutoDto(produtos);
 
     }
+
     public void deletar(UUID id){
         repository.deleteById(id);
     }
 
-    public CadastroProdutoDto atualizar(UUID id){
+    public CadastroProdutoDto atualizar(UUID id, CadastroProdutoDto dto){
         Produto produto = repository.findById(id).orElseThrow(() -> new ProdutoNaoEncontrado("Produto não encontrado"));
+        produto.setDescricao(dto.descricao());
+        produto.setNome(dto.nome());
+        produto.setDisponivel(dto.disponivel());
+        produto.setQuantidade(dto.quantidade());
+
 
         Produto produtoSalvo = repository.save(produto);
         return produtoMapperStruct.toProdutoDto(produtoSalvo);

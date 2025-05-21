@@ -1,6 +1,7 @@
 package br.com.acabouMony.controller;
 
 import br.com.acabouMony.dto.CadastroCartaoDTO;
+import br.com.acabouMony.dto.ListagemCartaoDTO;
 import br.com.acabouMony.service.CartaoService;
 import br.com.acabouMony.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,16 @@ public class CartaoController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<CadastroCartaoDTO>> listarCartao(){
-        service.listar();
-        return ResponseEntity.status(200).build();
+    public ResponseEntity<List<ListagemCartaoDTO>> listarCartao(){
+
+        return ResponseEntity.status(200).body(service.listar());
     }
 
     @GetMapping("/listar/{id}")
-    public ResponseEntity<List<CadastroCartaoDTO>> listarPorId(@PathVariable UUID id){
+    public ResponseEntity<List<ListagemCartaoDTO>> listarPorId(@PathVariable UUID id){
         return ResponseEntity.status(200).body(service.listarPorId(id));
     }
+
 
 
 

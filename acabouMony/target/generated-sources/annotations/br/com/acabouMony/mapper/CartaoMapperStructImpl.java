@@ -2,7 +2,6 @@ package br.com.acabouMony.mapper;
 
 import br.com.acabouMony.dto.CadastroCartaoDTO;
 import br.com.acabouMony.entity.Cartao;
-import br.com.acabouMony.entity.Conta;
 import br.com.acabouMony.tipos.TipoPagamento;
 import java.util.Date;
 import javax.annotation.processing.Generated;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-20T15:18:18-0300",
+    date = "2025-05-21T11:10:05-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -23,6 +22,12 @@ public class CartaoMapperStructImpl implements CartaoMapperStruct {
         }
 
         Cartao cartao = new Cartao();
+
+        cartao.setNumero( dto.numero() );
+        cartao.setCvv( dto.cvv() );
+        cartao.setSenha( dto.senha() );
+        cartao.setValidade( dto.validade() );
+        cartao.setTipo( dto.tipo() );
 
         return cartao;
     }
@@ -38,9 +43,14 @@ public class CartaoMapperStructImpl implements CartaoMapperStruct {
         Integer senha = null;
         Date validade = null;
         TipoPagamento tipo = null;
-        Conta conta = null;
 
-        CadastroCartaoDTO cadastroCartaoDTO = new CadastroCartaoDTO( numero, cvv, senha, validade, tipo, conta );
+        numero = entity.getNumero();
+        cvv = entity.getCvv();
+        senha = entity.getSenha();
+        validade = entity.getValidade();
+        tipo = entity.getTipo();
+
+        CadastroCartaoDTO cadastroCartaoDTO = new CadastroCartaoDTO( numero, cvv, senha, validade, tipo );
 
         return cadastroCartaoDTO;
     }
@@ -56,9 +66,14 @@ public class CartaoMapperStructImpl implements CartaoMapperStruct {
         Integer senha = null;
         Date validade = null;
         TipoPagamento tipo = null;
-        Conta conta = null;
 
-        CadastroCartaoDTO cadastroCartaoDTO = new CadastroCartaoDTO( numero, cvv, senha, validade, tipo, conta );
+        numero = entity.getNumero();
+        cvv = entity.getCvv();
+        senha = entity.getSenha();
+        validade = entity.getValidade();
+        tipo = entity.getTipo();
+
+        CadastroCartaoDTO cadastroCartaoDTO = new CadastroCartaoDTO( numero, cvv, senha, validade, tipo );
 
         return cadastroCartaoDTO;
     }
