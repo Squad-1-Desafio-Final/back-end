@@ -37,7 +37,7 @@ public class PedidoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> Deletar(@PathVariable UUID id, @RequestBody  Pedido dados){
+    public ResponseEntity<Void> Deletar(@PathVariable UUID id){
         service.deletar(id);
         return ResponseEntity.status(200).build();
     }
