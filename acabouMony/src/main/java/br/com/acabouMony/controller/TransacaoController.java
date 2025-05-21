@@ -1,6 +1,7 @@
 package br.com.acabouMony.controller;
 
 import br.com.acabouMony.dto.CadastroTransacaoDto;
+import br.com.acabouMony.dto.ListagemTransacaoDto;
 import br.com.acabouMony.entity.Transacao;
 import br.com.acabouMony.service.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class TransacaoController {
     TransacaoService service;
 
     @GetMapping
-    public ResponseEntity<List<Transacao>> listar(){
+    public ResponseEntity<List<ListagemTransacaoDto>> listar(){
         return ResponseEntity.status(200).body(service.listar());
     }
 
     @PostMapping
-    public ResponseEntity<CadastroTransacaoDto> cadastrar(@RequestBody CadastroTransacaoDto dados){
+    public ResponseEntity<ListagemTransacaoDto> cadastrar(@RequestBody CadastroTransacaoDto dados){
         return ResponseEntity.status(201).body(service.criar(dados));
     }
 

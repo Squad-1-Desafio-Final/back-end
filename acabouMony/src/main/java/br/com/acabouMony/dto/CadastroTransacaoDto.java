@@ -7,7 +7,6 @@ import br.com.acabouMony.tipos.TipoPagamento;
 import java.util.Date;
 
 public record CadastroTransacaoDto(
-        Date data,
         TipoPagamento tipo,
         Cartao cartao,
         Usuario usuario
