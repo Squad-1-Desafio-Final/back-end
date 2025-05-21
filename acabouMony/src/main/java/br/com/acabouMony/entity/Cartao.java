@@ -35,6 +35,9 @@ public class Cartao {
     @ManyToOne
     private Conta conta;
 
+    private Boolean ativo;
+
+
 
 
 

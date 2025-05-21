@@ -5,6 +5,8 @@ import br.com.acabouMony.dto.ListagemCartaoDTO;
 import br.com.acabouMony.entity.Cartao;
 import br.com.acabouMony.entity.Conta;
 import br.com.acabouMony.entity.Produto;
+import br.com.acabouMony.exception.IdNaoEncontradoException;
+import br.com.acabouMony.exception.UsuarioNaoEncontradoException;
 import br.com.acabouMony.mapper.CartaoListarMapper;
 import br.com.acabouMony.mapper.CartaoMapperStruct;
 import br.com.acabouMony.repository.CartaoRepository;
@@ -34,14 +36,26 @@ public class CartaoService {
     @Autowired
     CartaoListarMapper cartaoListarMapper;
 
+
+
     public CadastroCartaoDTO criar(CadastroCartaoDTO dto){
         Cartao cartao = cartaoMapperStruct.toEntity(dto);
+        var conta = contaRepository.findByNumero(dto.numeroConta());
+
+        if (conta.isEmpty()){
+            throw new RuntimeException("Conta não existe!");
+
+        }
+
+        cartao.setConta(conta.get());
 
         repository.save(cartao);
         System.out.println(cartao.getConta());
         return cartaoMapperStruct.toCartaoDto(cartao);
 
     }
+
+
 
     public List<ListagemCartaoDTO> listar(){
         var lista = repository.listarNumETipo();
@@ -50,12 +64,14 @@ public class CartaoService {
     }
 
 
-    public List<ListagemCartaoDTO> listarPorId(UUID id){
-        Optional<Cartao> cartao = repository.findById(id);
+    public ListagemCartaoDTO listarPorId(UUID id){
+        Cartao cartao = repository.findById(id) .orElseThrow(() -> new IdNaoEncontradoException("Id não encontrado"));
 
-        return cartao.stream()
-                .map(cartaoListarMapper::toCartaoDto)
-                .collect(Collectors.toList());
+
+        return cartaoListarMapper.toCartaoDto(cartao);
+
+
+
     }
 
 

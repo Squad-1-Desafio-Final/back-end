@@ -5,5 +5,5 @@ import br.com.acabouMony.tipos.TipoPagamento;
 
 import java.util.Date;
 
-public record CadastroCartaoDTO(Long numero, Integer cvv, Integer senha, Date validade, TipoPagamento tipo) {
+public record CadastroCartaoDTO(Long numero, Integer cvv, Integer senha, Date validade, TipoPagamento tipo, boolean ativo, int numeroConta) {
 }

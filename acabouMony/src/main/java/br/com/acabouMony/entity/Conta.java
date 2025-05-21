@@ -37,6 +37,8 @@ public class Conta {
 
     private Date dataCriacao;
 
+    private boolean ativo;
+
     @OneToOne
     private Usuario usuario;
 }
