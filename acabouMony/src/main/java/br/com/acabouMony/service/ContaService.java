@@ -6,6 +6,7 @@ import br.com.acabouMony.dto.ListagemContaDTO;
 import br.com.acabouMony.entity.Conta;
 import br.com.acabouMony.mapper.ContaMapper;
 import br.com.acabouMony.repository.ContaRepository;
+import br.com.acabouMony.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +23,22 @@ public class ContaService {
     private ContaRepository contaRepository;
 
     @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
     private ContaMapper contaMapper;
 
     public ListagemContaDTO saveConta(CadastroContaDTO dto) {
+
+        var usuario = usuarioRepository.findByCpf(dto.cpf());
+
+        if (usuario.isEmpty()) {
+            throw new RuntimeException("Usuário com esse cpf não existe");
+        }
+
+        if (contaRepository.existsByNumero(dto.numero())) {
+            throw new RuntimeException("Conta com esse número já existe");
+        }
 
         Conta conta = contaMapper.toEntity(dto);
 
@@ -32,6 +46,8 @@ public class ContaService {
         conta.setDataCriacao(
                 new Date(dataAtual.getYear(), dataAtual.getMonthValue(), dataAtual.getDayOfMonth()));
 
+        conta.setAtivo(true);
+        conta.setUsuario(usuario.get());
         contaRepository.save(conta);
         return contaMapper.toListagemContaDTO(conta);
     }
@@ -81,5 +97,14 @@ public class ContaService {
         }
 
         contaRepository.deleteById(id);
+    }
+
+    public void deleteLogicaConta(UUID id) {
+
+        if (!contaRepository.existsById(id)) {
+            throw new RuntimeException("Conta com esse ID não existe");
+        }
+
+        contaRepository.delecaoLogica(id);
     }
 }
