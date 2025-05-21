@@ -4,6 +4,7 @@ import br.com.acabouMony.dto.AtualizacaoContaDTO;
 import br.com.acabouMony.dto.CadastroContaDTO;
 import br.com.acabouMony.dto.ListagemContaDTO;
 import br.com.acabouMony.service.ContaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class ContaController {
     private ContaService contaService;
 
     @PostMapping
-    public ResponseEntity<ListagemContaDTO> saveConta(@RequestBody CadastroContaDTO dto) {
+    public ResponseEntity<ListagemContaDTO> saveConta(@RequestBody @Valid CadastroContaDTO dto) {
         try {
             var conta = contaService.saveConta(dto);
             return ResponseEntity.status(201).body(conta);
@@ -63,6 +64,16 @@ public class ContaController {
         try {
             contaService.deleteConta(id);
             return ResponseEntity.status(204).build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).build();
+        }
+    }
+
+    @PatchMapping("/delecao/{id}")
+    public ResponseEntity<Void> deleteLogicaConta(@PathVariable UUID id) {
+        try {
+            contaService.deleteLogicaConta(id);
+            return ResponseEntity.status(200).build();
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).build();
         }
