@@ -1,5 +1,6 @@
 package br.com.acabouMony.entity;
 
+import br.com.acabouMony.dto.CadastroCartaoDTO;
 import br.com.acabouMony.tipos.TipoPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class Cartao {
     private Boolean ativo;
 
 
+    public Cartao(CadastroCartaoDTO cartaoDTO) {
 
-
-
+    }
 }

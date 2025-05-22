@@ -2,6 +2,7 @@ package br.com.acabouMony.controller;
 
 import br.com.acabouMony.dto.CadastroContaDTO;
 import br.com.acabouMony.service.ContaService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,12 +31,15 @@ class ContaControllerTest {
     @Mock
     private CadastroContaDTO cadastroContaDTO;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @Test
     @DisplayName("Deveria retorna 201 ao cadastrar uma conta")
     void saveConta() throws Exception {
 
         var response = mockMvc.perform(post("/conta")
-                .content(String.valueOf(cadastroContaDTO))
+                .content(objectMapper.writeValueAsString(cadastroContaDTO))
                 .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
 
             Assertions.assertEquals(201, response.getStatus());

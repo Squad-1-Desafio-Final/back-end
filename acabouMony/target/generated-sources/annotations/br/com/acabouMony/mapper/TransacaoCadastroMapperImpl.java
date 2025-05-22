@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-22T09:43:36-0300",
+    date = "2025-05-22T13:12:47-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -25,10 +25,6 @@ public class TransacaoCadastroMapperImpl implements TransacaoCadastroMapper {
 
         Transacao transacao = new Transacao();
 
-        transacao.setTipo( dto.tipo() );
-        transacao.setCartao( dto.cartao() );
-        transacao.setPedido( dto.pedido() );
-
         return transacao;
     }
 
@@ -40,13 +36,8 @@ public class TransacaoCadastroMapperImpl implements TransacaoCadastroMapper {
 
         TipoPagamento tipo = null;
         Cartao cartao = null;
-        Pedido pedido = null;
-
-        tipo = entity.getTipo();
-        cartao = entity.getCartao();
-        pedido = entity.getPedido();
-
         Usuario usuario = null;
+        Pedido pedido = null;
 
         CadastroTransacaoDto cadastroTransacaoDto = new CadastroTransacaoDto( tipo, cartao, usuario, pedido );
 
@@ -61,13 +52,8 @@ public class TransacaoCadastroMapperImpl implements TransacaoCadastroMapper {
 
         TipoPagamento tipo = null;
         Cartao cartao = null;
-        Pedido pedido = null;
-
-        tipo = entity.getTipo();
-        cartao = entity.getCartao();
-        pedido = entity.getPedido();
-
         Usuario usuario = null;
+        Pedido pedido = null;
 
         CadastroTransacaoDto cadastroTransacaoDto = new CadastroTransacaoDto( tipo, cartao, usuario, pedido );
 

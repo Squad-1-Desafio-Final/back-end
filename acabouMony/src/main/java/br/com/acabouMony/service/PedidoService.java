@@ -11,6 +11,7 @@ import br.com.acabouMony.exception.UsuarioNaoEncontradoException;
 import br.com.acabouMony.mapper.PedidoCadastrarMapperStruct;
 import br.com.acabouMony.mapper.PedidoListarMapperStruct;
 import br.com.acabouMony.repository.PedidoRepository;
+import br.com.acabouMony.repository.ProdutoRepository;
 import br.com.acabouMony.repository.UsuarioRepository;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,6 +38,9 @@ public class PedidoService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    ProdutoRepository produtoRepository;
+
     public List<ListagemPedidoDto> listar(){
         List<Pedido> pedidos = repository.findAll();
 
@@ -52,22 +55,42 @@ public class PedidoService {
         Usuario usuario = usuarioRepository.findById(dados.usuario().getId())
                 .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuário não encontrado"));
 
+        List<UUID> ids = dados.produtos().stream()
+                .map(Produto::getId)
+                .collect(Collectors.toList());
+
+        List<Produto> produtosEncontrados = produtoRepository.findAllById(ids);
+
+// Criar um Map para acessar rapidamente Produto pelo ID
+        Map<UUID, Produto> produtoMap = produtosEncontrados.stream()
+                .collect(Collectors.toMap(Produto::getId, Function.identity()));
+
+// Reconstituir a lista de produtos mantendo repetições
+        List<Produto> produtos = ids.stream()
+                .map(produtoMap::get)
+                .collect(Collectors.toList());
+
+
         Pedido pedido = pedidoCadastrarMapperStruct.toEntity(dados);
-
-
-        BigDecimal precoTotal = dados.produtos()
-                .stream()
-                .map(p -> p.getPreco())
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-
-        double precoTotalDouble = precoTotal.doubleValue();
 
 
         pedido.setDate(new Date(System.currentTimeMillis() + 1000));
         pedido.setCarrinho(true);
         pedido.setUsuario(usuario);
+        pedido.setProdutos(produtos);
+
+        BigDecimal precoTotal = pedido.getProdutos()
+                .stream()
+                .map(Produto::getPreco)
+                .filter(Objects::nonNull)  // Evita null na soma
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        double precoTotalDouble = precoTotal.doubleValue();
+
         pedido.setPrecoTotal(precoTotalDouble);
+
+
+
 
         Pedido pedidoSalvo = repository.save(pedido);
 

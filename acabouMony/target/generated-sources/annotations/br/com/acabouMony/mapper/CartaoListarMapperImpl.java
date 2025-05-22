@@ -1,5 +1,6 @@
 package br.com.acabouMony.mapper;
 
+import br.com.acabouMony.dto.CadastroCartaoDTO;
 import br.com.acabouMony.dto.ListagemCartaoDTO;
 import br.com.acabouMony.entity.Cartao;
 import br.com.acabouMony.tipos.TipoPagamento;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-22T09:43:36-0300",
+    date = "2025-05-22T13:12:46-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -20,10 +21,9 @@ public class CartaoListarMapperImpl implements CartaoListarMapper {
             return null;
         }
 
-        Cartao cartao = new Cartao();
+        CadastroCartaoDTO cartaoDTO = null;
 
-        cartao.setNumero( dto.numero() );
-        cartao.setTipo( dto.tipo() );
+        Cartao cartao = new Cartao( cartaoDTO );
 
         return cartao;
     }
@@ -34,11 +34,8 @@ public class CartaoListarMapperImpl implements CartaoListarMapper {
             return null;
         }
 
-        Long numero = null;
+        String numero = null;
         TipoPagamento tipo = null;
-
-        numero = entity.getNumero();
-        tipo = entity.getTipo();
 
         ListagemCartaoDTO listagemCartaoDTO = new ListagemCartaoDTO( numero, tipo );
 
@@ -51,11 +48,8 @@ public class CartaoListarMapperImpl implements CartaoListarMapper {
             return null;
         }
 
-        Long numero = null;
+        String numero = null;
         TipoPagamento tipo = null;
-
-        numero = entity.getNumero();
-        tipo = entity.getTipo();
 
         ListagemCartaoDTO listagemCartaoDTO = new ListagemCartaoDTO( numero, tipo );
 

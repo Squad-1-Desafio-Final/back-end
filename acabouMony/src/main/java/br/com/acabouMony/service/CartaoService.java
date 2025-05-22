@@ -1,7 +1,9 @@
 package br.com.acabouMony.service;
 
 import br.com.acabouMony.dto.CadastroCartaoDTO;
+import br.com.acabouMony.dto.CadastroEnderecoDTO;
 import br.com.acabouMony.dto.ListagemCartaoDTO;
+import br.com.acabouMony.dto.ListagemEnderecoDTO;
 import br.com.acabouMony.entity.*;
 import br.com.acabouMony.exception.CartaoNaoEncontrado;
 import br.com.acabouMony.exception.IdNaoEncontradoException;
@@ -13,6 +15,7 @@ import br.com.acabouMony.repository.CartaoRepository;
 import br.com.acabouMony.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -40,6 +43,15 @@ public class CartaoService {
     private static final Set<String> numerosGerados = new HashSet<>();
     private static final Random random = new Random();
     private static final DateTimeFormatter FORMATADOR_MM_YY = DateTimeFormatter.ofPattern("MM/yy");
+
+    @Transactional
+    public CadastroCartaoDTO saveCartao(CadastroCartaoDTO cartaoDTO) {
+
+        var cartao = new Cartao(cartaoDTO);
+        repository.save(cartao);
+        return cartaoMapperStruct.toCartaoDto(cartao);
+
+    }
 
     public static String gerarDataValidadeFormatada() {
         long mesesAdicionais = ThreadLocalRandom.current().nextLong(36, 61);
