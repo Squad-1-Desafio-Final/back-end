@@ -3,6 +3,7 @@ package br.com.acabouMony.service;
 import br.com.acabouMony.dto.CadastroPedidoDto;
 import br.com.acabouMony.dto.ListagemPedidoDto;
 import br.com.acabouMony.entity.Pedido;
+import br.com.acabouMony.entity.Produto;
 import br.com.acabouMony.entity.Usuario;
 import br.com.acabouMony.exception.PedidoNaoEncontrado;
 import br.com.acabouMony.exception.PedidoNaoPodeSerEditadoException;
@@ -15,6 +16,7 @@ import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -52,9 +54,20 @@ public class PedidoService {
 
         Pedido pedido = pedidoCadastrarMapperStruct.toEntity(dados);
 
+
+        BigDecimal precoTotal = dados.produtos()
+                .stream()
+                .map(p -> p.getPreco())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+
+        double precoTotalDouble = precoTotal.doubleValue();
+
+
         pedido.setDate(new Date(System.currentTimeMillis() + 1000));
         pedido.setCarrinho(true);
         pedido.setUsuario(usuario);
+        pedido.setPrecoTotal(precoTotalDouble);
 
         Pedido pedidoSalvo = repository.save(pedido);
 

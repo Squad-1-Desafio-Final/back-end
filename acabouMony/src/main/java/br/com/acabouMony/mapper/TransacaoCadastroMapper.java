@@ -5,9 +5,11 @@ import br.com.acabouMony.dto.CadastroTransacaoDto;
 import br.com.acabouMony.entity.Produto;
 import br.com.acabouMony.entity.Transacao;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface TransacaoCadastroMapper {
+    //@M//apping(source = "usuario", target = "usuario")
     Transacao toEntity(CadastroTransacaoDto dto);
     CadastroTransacaoDto toTransacaoDto(Transacao entity);
     CadastroTransacaoDto toDadosTransacaoDto(Transacao entity);

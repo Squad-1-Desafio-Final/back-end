@@ -39,9 +39,9 @@ public class CartaoController {
         return ResponseEntity.status(200).body(service.listarPorId(id));
     }
 
-    @PatchMapping("/editar/{id}")
-    public ResponseEntity<Cartao> editar(@PathVariable UUID id, @RequestBody Cartao dados){
-        return ResponseEntity.status(200).body(service.editar(id, dados));
+    @PatchMapping("/desativar/{id}")
+    public ResponseEntity<Cartao> editar(@PathVariable UUID id){
+        return ResponseEntity.status(200).body(service.editar(id));
     }
 
 
