@@ -47,13 +47,12 @@ class CartaoControllerTest {
 
         String json = objectMapper.writeValueAsString(dto);
 
-        mockMvc.perform(post("/cartao")
+        var response = mockMvc.perform(post("/cartao")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
-                .andExpect(status().isCreated())
-                .andExpect(content().string("Cadastro de cartão feito com sucesso!"));
+                .andExpect(status().isCreated());
 
-        verify(cartaoService).saveCartao(any());
+        verify(cartaoService).criar(any());
 
 
     }

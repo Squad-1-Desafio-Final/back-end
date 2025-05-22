@@ -9,12 +9,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PedidoListarMapperStruct {
 
-  @Mapping(source = "id", target = "id")
-  @Mapping(source = "usuario", target = "usuario")
-  @Mapping(source = "produtos", target = "produtos")
-  @Mapping(source = "precoTotal", target = "precoTotal")
-  @Mapping(source = "date", target = "date")
-  @Mapping(source = "carrinho", target = "carrinho")
+
+//  @Mapping(source = "carrinho", target = "carrinho")
     Pedido toEntity(ListagemPedidoDto dto);
     ListagemPedidoDto toPedidoDto(Pedido entity);
     ListagemPedidoDto toDadosPedidoDto(Pedido entity);
