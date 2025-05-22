@@ -9,4 +9,5 @@ public record ListagemEnderecoDTO(
         String estado,
         String cep
 ) {
+
 }

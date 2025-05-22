@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 public interface UsuarioResumoMapper {
 
-    //@Mapping(source = "nome", target = "nome")
+//    @Mapping(source = "nome", target = "nome")
     Usuario toEntity(UsuarioResumoDto dto);
     UsuarioResumoDto toPedidoDto(Usuario entity);
     UsuarioResumoDto toDadosPedidoDto(Usuario entity);
