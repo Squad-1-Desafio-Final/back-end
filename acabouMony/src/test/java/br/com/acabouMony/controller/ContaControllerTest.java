@@ -14,7 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-//import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
+import java.time.LocalDate;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
@@ -28,40 +29,44 @@ class ContaControllerTest {
     @MockitoBean
     private ContaService contaService;
 
-    @Mock
-    private CadastroContaDTO cadastroContaDTO;
-
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Test
     @DisplayName("Deveria retorna 201 ao cadastrar uma conta")
     void saveConta() throws Exception {
 
-        var response = mockMvc.perform(post("/conta")
-                .content(objectMapper.writeValueAsString(cadastroContaDTO))
-                .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+        CadastroContaDTO dto = new CadastroContaDTO(LocalDate.now(),
+                1500.50,
+                1234,
+                12345678,
+                33,
+                "123.456.789-00");
 
-            Assertions.assertEquals(201, response.getStatus());
-    }
+    var response = mockMvc.perform(post("/conta")
+            .content(objectMapper.writeValueAsString(dto))
+            .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
 
-    @Test
-    void getAllContas() {
-    }
+            Assertions.assertEquals(201,response.getStatus());
+}
 
-    @Test
-    void getOneConta() {
-    }
+@Test
+void getAllContas() {
+}
 
-    @Test
-    void updateConta() {
-    }
+@Test
+void getOneConta() {
+}
 
-    @Test
-    void deleteConta() {
-    }
+@Test
+void updateConta() {
+}
 
-    @Test
-    void deleteLogicaConta() {
-    }
+@Test
+void deleteConta() {
+}
+
+@Test
+void deleteLogicaConta() {
+}
 }
