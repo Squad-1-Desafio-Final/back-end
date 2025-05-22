@@ -5,13 +5,12 @@ import br.com.acabouMony.entity.Cartao;
 import br.com.acabouMony.entity.Transacao;
 import br.com.acabouMony.entity.Usuario;
 import br.com.acabouMony.tipos.TipoPagamento;
-import java.util.Date;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-21T15:03:36-0300",
+    date = "2025-05-22T09:29:23-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -34,12 +33,11 @@ public class TransacaoCadastroMapperImpl implements TransacaoCadastroMapper {
             return null;
         }
 
-        Date data = null;
         TipoPagamento tipo = null;
         Cartao cartao = null;
         Usuario usuario = null;
 
-        CadastroTransacaoDto cadastroTransacaoDto = new CadastroTransacaoDto( data, tipo, cartao, usuario );
+        CadastroTransacaoDto cadastroTransacaoDto = new CadastroTransacaoDto( tipo, cartao, usuario );
 
         return cadastroTransacaoDto;
     }
@@ -50,12 +48,11 @@ public class TransacaoCadastroMapperImpl implements TransacaoCadastroMapper {
             return null;
         }
 
-        Date data = null;
         TipoPagamento tipo = null;
         Cartao cartao = null;
         Usuario usuario = null;
 
-        CadastroTransacaoDto cadastroTransacaoDto = new CadastroTransacaoDto( data, tipo, cartao, usuario );
+        CadastroTransacaoDto cadastroTransacaoDto = new CadastroTransacaoDto( tipo, cartao, usuario );
 
         return cadastroTransacaoDto;
     }
