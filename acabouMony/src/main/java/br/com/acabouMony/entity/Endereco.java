@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Endereco {
@@ -38,13 +37,29 @@ public class Endereco {
     private Usuario usuario;
 
 
-    public Endereco(CadastroEnderecoDTO enderecoDTO) {
-        this.logradouro = enderecoDTO.logradouro();
-        this.numero = enderecoDTO.numero();
-        this.complemento = enderecoDTO.complemento();
-        this.bairro = enderecoDTO.bairro();
-        this.cidade = enderecoDTO.cidade();
-        this.estado = enderecoDTO.estado();
-        this.cep = enderecoDTO.cep();
+    // ✅ Required no-args constructor
+    public Endereco() {}
+
+    public Endereco(CadastroEnderecoDTO dto) {
+        this.id = UUID.randomUUID(); // Or set externally
+        this.logradouro = dto.logradouro();
+        this.numero = dto.numero();
+        this.complemento = dto.complemento();
+        this.bairro = dto.bairro();
+        this.cidade = dto.cidade();
+        this.estado = dto.estado();
+        this.cep = dto.cep();
+    }
+
+    public Endereco(UUID id, String logradouro, int numero, String complemento,
+                    String bairro, String cidade, String estado, String cep) {
+        this.id = id;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
     }
 }

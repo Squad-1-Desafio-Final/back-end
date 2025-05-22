@@ -125,7 +125,5 @@ public class EnderecoController {
         enderecoService.atualizarCEP(id, cep);
         return ResponseEntity.ok().build();
     }
-
-
 }
 

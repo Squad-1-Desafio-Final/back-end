@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-21T15:40:11-0300",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
+    date = "2025-05-22T11:44:53-0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
 )
 @Component
 public class PedidoListarMapperStructImpl implements PedidoListarMapperStruct {
@@ -31,13 +31,13 @@ public class PedidoListarMapperStructImpl implements PedidoListarMapperStruct {
 
         Pedido pedido = new Pedido();
 
-        pedido.setPrecoTotal( dto.precoTotal() );
         pedido.setId( dto.id() );
         pedido.setUsuario( usuarioResumoDtoToUsuario( dto.usuario() ) );
         List<Produto> list = dto.produtos();
         if ( list != null ) {
             pedido.setProdutos( new ArrayList<Produto>( list ) );
         }
+        pedido.setPrecoTotal( dto.precoTotal() );
         if ( dto.date() != null ) {
             pedido.setDate( Date.from( dto.date().toInstant( ZoneOffset.UTC ) ) );
         }

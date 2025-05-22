@@ -21,13 +21,13 @@ public class Cartao {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private java.util.UUID id;
 
-    private Long numero;
+    private String numero;
 
     private Integer cvv;
 
     private Integer senha;
 
-    private Date validade;
+    private String validade;
 
     @Enumerated(EnumType.STRING)
     private TipoPagamento tipo;
