@@ -140,5 +140,36 @@ class ContaServiceTest {
         Assertions.assertEquals(listagemContaDTO, response);
     }
 
+    @Test
+    @DisplayName("Deleção de usuário")
+    void delecaoUsuario() {
+
+        // ARRANGE
+
+        when(contaRepository.existsById(uuid)).thenReturn(true);
+        // ACT
+        contaService.deleteConta(uuid);
+
+        // ASSERTION
+
+        then(contaRepository).should().deleteById(uuid);
+    }
+
+    @Test
+    @DisplayName("Deleção de usuário -  Código 404")
+    void delecaoUsuario_nao_encontrado() {
+
+        // ARRANGE
+
+        when(contaRepository.existsById(uuid)).thenReturn(false);
+
+
+        //ACT + ASSERTION
+
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            contaService.deleteConta(uuid);
+        });
+    }
+
 
 }
