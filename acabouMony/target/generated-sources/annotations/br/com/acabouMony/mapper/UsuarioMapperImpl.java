@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-22T10:28:23-0300",
+    date = "2025-05-22T09:43:38-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -21,9 +21,14 @@ public class UsuarioMapperImpl implements UsuarioMapper {
             return null;
         }
 
-        CadastroUsuarioDTO usuarioDTO = null;
+        Usuario usuario = new Usuario();
 
-        Usuario usuario = new Usuario( usuarioDTO );
+        usuario.setNome( dto.nome() );
+        usuario.setEmail( dto.email() );
+        usuario.setSenha( dto.senha() );
+        usuario.setCpf( dto.cpf() );
+        usuario.setTelefone( dto.telefone() );
+        usuario.setDtNasc( dto.dtNasc() );
 
         return usuario;
     }
@@ -38,6 +43,11 @@ public class UsuarioMapperImpl implements UsuarioMapper {
         String email = null;
         String telefone = null;
         Date dtNasc = null;
+
+        nome = usuario.getNome();
+        email = usuario.getEmail();
+        telefone = usuario.getTelefone();
+        dtNasc = usuario.getDtNasc();
 
         ListagemUsuarioDTO listagemUsuarioDTO = new ListagemUsuarioDTO( nome, email, telefone, dtNasc );
 

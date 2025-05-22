@@ -15,8 +15,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,11 +48,23 @@ class ContaServiceTest {
     private Optional<Usuario> usuario;
 
     @Mock
+    private Optional<Conta> contaOptional;
+
+    @Mock
     private Conta conta;
 
+    @Mock
+    private List<Conta> listaContas;
+
+    @Mock
+    private List<ListagemContaDTO> listagemContaDTOS;
+
+    @Mock
+    private UUID uuid;
+
     @Test
-    @DisplayName("Conta com esse número já existe - erro 409")
-    void erro409() {
+    @DisplayName("Conta com esse número já existe - codigo 409")
+    void codigo409() {
         // ARRANGE
         when(usuarioRepository.findByCpf(cadastroContaDTO.cpf()))
                 .thenReturn(usuario);
@@ -70,10 +86,108 @@ class ContaServiceTest {
                 .thenReturn(usuario);
 
         when(contaMapper.toEntity(cadastroContaDTO)).thenReturn(conta);
+
         // ACT
         contaService.saveConta(cadastroContaDTO);
 
         // ASSERT
 
+        then(contaRepository).should().save(conta);
+    }
+
+    @Test
+    @DisplayName("Listagem de conta vazio - codigo 204")
+    void codigo204() {
+
+        // ARRANGE
+        when(contaRepository.findAll()).thenReturn(Collections.emptyList());
+
+        // ACT & ASSERT
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            contaService.getAllContas();
+        });
+    }
+
+    @Test
+    @DisplayName("Listagem de contas - código 200")
+    void codigo200_listagem_contas() {
+        // ARRANGE
+        List<Conta> listaContas = List.of(conta);
+        List<ListagemContaDTO> listagemContaDTOS = List.of(listagemContaDTO);
+
+        when(contaRepository.findAll()).thenReturn(listaContas);
+        when(contaMapper.toListagemContaDTO(conta)).thenReturn(listagemContaDTO);
+
+        // ACT
+        List<ListagemContaDTO> response = contaService.getAllContas();
+
+        // ASSERT
+        Assertions.assertEquals(listagemContaDTOS, response);
+    }
+
+    @Test
+    @DisplayName("Listagem de conta - código 200")
+    void codigo200_listagem_conta_por_id() {
+        // ARRANGE
+        when(contaRepository.findById(uuid)).thenReturn(contaOptional);
+        when(contaOptional.get()).thenReturn(conta); // precisa disso porque você está mockando Optional
+        when(contaMapper.toListagemContaDTO(conta)).thenReturn(listagemContaDTO);
+
+        // ACT
+        var response = contaService.getOneConta(uuid);
+
+        // ASSERT
+        Assertions.assertEquals(listagemContaDTO, response);
+    }
+
+    @Test
+    @DisplayName("Deleção de usuário")
+    void delecaoUsuario() {
+
+        // ARRANGE
+        when(contaRepository.existsById(uuid)).thenReturn(true);
+        // ACT
+        contaService.deleteConta(uuid);
+
+        // ASSERTION
+        then(contaRepository).should().deleteById(uuid);
+    }
+
+    @Test
+    @DisplayName("Deleção de usuário -  Código 404")
+    void delecaoUsuario_nao_encontrado() {
+
+        // ARRANGE
+        when(contaRepository.existsById(uuid)).thenReturn(false);
+
+        //ACT + ASSERTION
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            contaService.deleteConta(uuid);
+        });
+    }
+
+    @Test
+    @DisplayName("Deleção de usuário lógica")
+    void delecaoUsuarioLogica() {
+
+        // ARRANGE
+        when(contaRepository.existsById(uuid)).thenReturn(true);
+        // ACT
+        contaService.deleteLogicaConta(uuid);
+        // ASSERTION
+        then(contaRepository).should().delecaoLogica(uuid);
+    }
+
+    @Test
+    @DisplayName("Deleção de usuário Lógica -  Código 404")
+    void delecaoUsuarioLogica_nao_encontrado() {
+
+        // ARRANGE
+        when(contaRepository.existsById(uuid)).thenReturn(false);
+
+        //ACT + ASSERTION
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            contaService.deleteLogicaConta(uuid);
+        });
     }
 }
