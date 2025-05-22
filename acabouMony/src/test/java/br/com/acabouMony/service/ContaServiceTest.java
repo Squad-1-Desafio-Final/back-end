@@ -145,13 +145,11 @@ class ContaServiceTest {
     void delecaoUsuario() {
 
         // ARRANGE
-
         when(contaRepository.existsById(uuid)).thenReturn(true);
         // ACT
         contaService.deleteConta(uuid);
 
         // ASSERTION
-
         then(contaRepository).should().deleteById(uuid);
     }
 
@@ -160,16 +158,36 @@ class ContaServiceTest {
     void delecaoUsuario_nao_encontrado() {
 
         // ARRANGE
-
         when(contaRepository.existsById(uuid)).thenReturn(false);
 
-
         //ACT + ASSERTION
-
         Assertions.assertThrows(RuntimeException.class, () -> {
             contaService.deleteConta(uuid);
         });
     }
 
+    @Test
+    @DisplayName("Deleção de usuário lógica")
+    void delecaoUsuarioLogica() {
 
+        // ARRANGE
+        when(contaRepository.existsById(uuid)).thenReturn(true);
+        // ACT
+        contaService.deleteLogicaConta(uuid);
+        // ASSERTION
+        then(contaRepository).should().delecaoLogica(uuid);
+    }
+
+    @Test
+    @DisplayName("Deleção de usuário Lógica -  Código 404")
+    void delecaoUsuarioLogica_nao_encontrado() {
+
+        // ARRANGE
+        when(contaRepository.existsById(uuid)).thenReturn(false);
+
+        //ACT + ASSERTION
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            contaService.deleteLogicaConta(uuid);
+        });
+    }
 }
