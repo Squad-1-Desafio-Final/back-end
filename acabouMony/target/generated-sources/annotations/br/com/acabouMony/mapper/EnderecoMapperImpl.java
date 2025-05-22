@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-21T15:52:11-0300",
+    date = "2025-05-22T10:22:41-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -20,15 +20,9 @@ public class EnderecoMapperImpl implements EnderecoMapper {
             return null;
         }
 
-        Endereco endereco = new Endereco();
+        CadastroEnderecoDTO enderecoDTO = null;
 
-        endereco.setNumero( dto.numero() );
-        endereco.setLogradouro( dto.logradouro() );
-        endereco.setComplemento( dto.complemento() );
-        endereco.setBairro( dto.bairro() );
-        endereco.setCidade( dto.cidade() );
-        endereco.setEstado( dto.estado() );
-        endereco.setCep( dto.cep() );
+        Endereco endereco = new Endereco( enderecoDTO );
 
         return endereco;
     }
@@ -46,14 +40,6 @@ public class EnderecoMapperImpl implements EnderecoMapper {
         String cidade = null;
         String estado = null;
         String cep = null;
-
-        logradouro = endereco.getLogradouro();
-        numero = endereco.getNumero();
-        complemento = endereco.getComplemento();
-        bairro = endereco.getBairro();
-        cidade = endereco.getCidade();
-        estado = endereco.getEstado();
-        cep = endereco.getCep();
 
         ListagemEnderecoDTO listagemEnderecoDTO = new ListagemEnderecoDTO( logradouro, numero, complemento, bairro, cidade, estado, cep );
 

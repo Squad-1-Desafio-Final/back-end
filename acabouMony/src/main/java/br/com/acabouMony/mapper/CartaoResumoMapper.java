@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CartaoResumoMapper {
 
-    @Mapping(source = "numero", target = "numero")
+    //@Mapping(source = "numero", target = "numero")
     Cartao toEntity(CartaoResumoDto dto);
     CartaoResumoDto toTransacaoDto(Cartao entity);
 }

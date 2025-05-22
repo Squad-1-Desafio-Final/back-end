@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PedidoListarMapperStruct {
 
-//    @Mapping(source = "precoTotal", target = "precoTotal")
+//  @Mapping(source = "precoTotal", target = "precoTotal")
     Pedido toEntity(ListagemPedidoDto dto);
     ListagemPedidoDto toPedidoDto(Pedido entity);
     ListagemPedidoDto toDadosPedidoDto(Pedido entity);
