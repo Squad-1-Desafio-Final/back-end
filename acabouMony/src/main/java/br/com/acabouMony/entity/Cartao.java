@@ -42,4 +42,8 @@ public class Cartao {
     public Cartao(CadastroCartaoDTO cartaoDTO) {
 
     }
+
+    public boolean isAtivo() {
+        return false;
+    }
 }
